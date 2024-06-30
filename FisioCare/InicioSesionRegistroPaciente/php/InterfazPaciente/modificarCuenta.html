@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Modificar Cuenta</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="styleModificarCuenta.css">
+</head>
+
+<body>
+    <header>
+        <div class="caja">
+            <ul>
+                <li><img src="Imagenes/LOGO.png" alt="Logo"></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <div class="contenedor-contenedores">
+            <!-- Contenedor para modificar la cuenta -->
+            <div class="modificar-cuenta-container">
+                <h2>Modificar Cuenta</h2>
+                <!-- Formulario para modificar la cuenta -->
+                <form id="modificarCuentaForm">
+                    <div class="form-group">
+                        <label for="nombre_usuario">Nuevo Nombre de Usuario:</label>
+                        <input type="text" id="nombre_usuario" class="form-control" placeholder="Nuevo Nombre de Usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="nueva_contrasena">Nueva Contraseña:</label>
+                        <input type="password" id="nueva_contrasena" class="form-control" placeholder="Nueva Contraseña">
+                    </div>
+                    <div class="form-group">
+                        <label for="nuevo_correo">Nuevo Correo Electrónico:</label>
+                        <input type="email" id="nuevo_correo" class="form-control" placeholder="Nuevo Correo Electrónico">
+                    </div>
+                    <button type="button" onclick="guardarCambios()">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Obtén los parámetros de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const nombreUsuario = urlParams.get('nombre_user');
+
+        // Asigna el valor actual del nombre de usuario al campo correspondiente
+        document.getElementById('nombre_usuario').value = nombreUsuario;
+
+        // Obtener información del usuario desde la base de datos
+        fetch('login.php')
+            .then(response => response.json())
+            .then(data => {
+                // Verifica si los datos están presentes y actualiza el formulario
+                if (data && data.nombre_user && data.contrasena_user && data.correo_user) {
+                    document.getElementById('nombre_usuario').value = data.nombre_user;
+                    // Puedes agregar código similar para otros campos como contraseña y correo
+                } else {
+                    console.error('No se pudieron obtener los datos del usuario.');
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener datos del usuario:', error);
+            });
+
+        // Función para guardar los cambios en la cuenta
+        function guardarCambios() {
+            const nuevoNombreUsuario = document.getElementById('nombre_usuario').value;
+            const nuevaContrasena = document.getElementById('nueva_contrasena').value;
+            const nuevoCorreo = document.getElementById('nuevo_correo').value;
+
+            // Envía los datos al archivo de actualización en el servidor
+            // Puedes usar fetch o AJAX para enviar estos datos al servidor
+            // Aquí se asume que existe un archivo "actualizar_cuenta.php" en el servidor
+            fetch('actualizar_cuenta.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nombre_usuario: nuevoNombreUsuario,
+                    contrasena: nuevaContrasena,
+                    correo: nuevoCorreo,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Aquí puedes manejar la respuesta del servidor
+                console.log('Respuesta del servidor:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Tratamiento</title>
+    <link rel="stylesheet" href="reset.css">
+     <link rel="stylesheet" href="style2.css" id="styleSheet">
+</head>
+
+<body>
+  <header>
+        <div class="caja">
+            <ul><li><img src="Imagenes/LOGO.png" alt="Logo"></li></ul>
+            <ul><li><img src="Imagenes/Paciente.png" alt="paciente"></li></ul>
+            <!-- Nuevo input para mostrar el tipo de cuenta -->
+            <div>
+                <label for="tipo_cuenta">Tipo de cuenta:</label>
+                <input type="text" id="tipo_cuenta" class="form-control" readonly>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="contenedor-contenedores">
+        <!-- Primer contenedor -->
+        <div class="inputs-container">
+            <!-- Formulario con los campos de nombre de usuario y correo -->
+            <form id="userDataForm">
+                <div class="form-group">
+                    <label for="nombre_user">Nombre de usuario:</label>
+                    <input type="text" id="nombre_user" class="form-control" placeholder="Nombre de usuario">
+                </div>
+                <div class="form-group">
+                    <label for="correo_user">Correo electrónico:</label>
+                    <input type="email" id="correo_user" class="form-control" placeholder="Correo electrónico">
+                    <!-- Botón para modificar cuenta -->
+                    <button type="button" id="modificarCuentaBtn" onclick="modificarCuenta()">Modificar Cuenta</button>
+                </div>
+            </form>
+        </div>
+            
+            <!-- Segundo contenedor -->
+            <div class="otro-contenedor" id="otroContenedor">
+                <!-- Input para mostrar la fecha de inicio -->
+                <div>
+                    <label for="fecha_inicio">Fecha de inicio:</label>
+                    <input type="text" id="fecha_inicio" class="form-control" readonly>
+                </div>
+            </div>
+
+            <!-- Tercer contenedor -->
+            <div class="tercer-contenedor" id="tercerContenedor">
+                <!-- Input para mostrar la fecha siguiente -->
+                <div>
+                    <label for="fecha_siguiente">Fecha siguiente:</label>
+                    <input type="text" id="fecha_siguiente" class="form-control" readonly>
+                </div>
+            </div>
+
+            <!-- Cuarto contenedor -->
+            <div class="cuarto-contenedor" id="cuartoContenedor">
+                <!-- Input para mostrar algún otro dato -->
+                <div>
+                    <label for="otro_dato"></label>
+                    <textarea id="otro_dato" class="form-control" readonly></textarea>
+                
+            </div>
+            </div>
+        </div>
+ 
+
+        <!-- Nuevo contenedor (quinto contenedor) -->
+        <div class="quinto-contenedor" id="quintoContenedor">
+            <div>
+                <label for="nuevo_dato"></label>
+            </div>
+        </div>
+
+
+</main>
+    <script>
+        // Obtiene los parámetros de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const nombreUsuario = urlParams.get('nombre_user');
+        const correoUsuario = urlParams.get('correo_user'); // Nuevo: Obtiene el correo del parámetro
+
+        // Asigna los valores obtenidos a los campos del primer formulario
+        document.getElementById('nombre_user').value = nombreUsuario;
+        document.getElementById('correo_user').value = correoUsuario; // Nuevo: Asigna el correo
+
+        // Función para cargar dinámicamente el contenido desde iniciofecha.php
+        function cargarContenidoDesdePHP() {
+            fetch('iniciofecha.php?nombre_usuario=' + nombreUsuario) // Ajusta la ruta al archivo PHP
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('otroContenedor').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Función para cargar la fecha siguiente desde el archivo PHP correspondiente
+        function cargarFechaSiguienteDesdePHP() {
+            fetch('fecha_siguiente.php?nombre_usuario=' + nombreUsuario) // Ajusta la ruta al archivo PHP
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('fecha_siguiente').value = data;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Función para cargar algún otro dato desde el archivo PHP correspondiente
+        function cargarOtroDatoDesdePHP() {
+            fetch('datos_tratamiento.php?nombre_usuario=' + nombreUsuario) // Ajusta la ruta al archivo PHP
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('otro_dato').value = data;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Llamada a la función para cargar el contenido al cargar la página
+        cargarContenidoDesdePHP();
+
+        // Llamada a la función para cargar la fecha siguiente al cargar la página
+        cargarFechaSiguienteDesdePHP();
+
+        // Llamada a la función para cargar algún otro dato al cargar la página
+        cargarOtroDatoDesdePHP();
+
+        function modificarCuenta() {
+        // Redirige a la página modificarCuenta.html
+        window.location.href = 'modificarCuenta.html';
+    }
+
+        // Asigna el valor de premium al input tipo_cuenta y carga el estilo correspondiente
+        const premiumValue = obtenerTipoCuentaPremium();
+        document.getElementById('tipo_cuenta').value = premiumValue;
+
+        // Función para obtener el tipo de cuenta premium o gratuita
+        function obtenerTipoCuentaPremium() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const premium = urlParams.get('premium');
+
+            if (premium === '1') {
+                // Cambia la hoja de estilo a stylePremium.css si la cuenta es premium
+                document.getElementById('styleSheet').href = 'stylePremium.css';
+                return 'Cuenta premium';
+            } else {
+                return 'Cuenta gratuita';
+            }
+        }
+    </script>
+</body>
+
+</html>

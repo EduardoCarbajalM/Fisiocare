@@ -1,0 +1,145 @@
+*{
+    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'PT Sans', sans-serif;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #4655a6; 
+    color: #fff;
+    height: 15%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.caja {
+    display: flex; 
+    justify-content: space-between;
+    align-items: center; 
+    width: 100%; 
+}
+
+.caja img {
+    display: inline-block;
+    height: 15%;
+    width: 13%;
+    margin-right: 150px;
+}
+
+main, .Contenedor {
+    background-image: url("Imagenes/BackgroundDoctor.jpg");
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 85%;
+    padding: 11.7%; 
+}
+
+main a {
+    text-decoration: none;
+}
+
+.Boton_Seguir,
+.Boton_Registro,
+.confirmar_tratamiento button {
+    margin: 30px;
+    padding: 40px 50px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.5s ease, color 0.5s ease; /* Transición de medio segundo */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
+}
+
+.Boton_Seguir {
+    background-color:#4655a6;
+    color: #fff;
+}
+
+.Boton_Registro {
+    background-color: #fff;
+    color: #4655a6;
+}
+
+.Boton_Seguir:hover {
+    background-color: #fff;
+    color: #4655a6;
+}
+
+.Boton_Registro:hover,
+.confirmar_tratamiento button:hover {
+    background-color: #4655a6;
+    color: #fff;
+}
+
+/* Estilo para Seguir_Tratamiento y Registro*/
+
+.Contenedor div,
+.menu_registro div {
+    margin: 2vh;
+    align-items: center;
+    text-align: center;
+    font-weight:bold;
+}
+
+.Contenedor p,
+.menu_registro p {
+    margin: 0 0 3px;
+}
+
+.confirmar_tratamiento button {
+    margin: 4px;
+    padding: 10px;
+}
+
+#perfil { cursor: pointer; }
+
+.menu_Cuenta { 
+    display: none; 
+    position: absolute; 
+    background-color: white; 
+    min-width: 160px; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 
+    z-index: 1; 
+}
+
+.menu_Cuenta a { 
+    color: black; 
+    padding: 12px 16px; 
+    text-decoration: none; 
+    display: block; 
+}
+
+.menu_Cuenta a:hover { 
+    background-color: #f1f1f1; 
+}
+
+#perfil:active + .menu_Cuenta { 
+    display: block; 
+} 
+
+/* Estilos para el menu cuenta */
+.menu_Cuenta {
+    display: none;
+    position: absolute;
+    text-align: center;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.menu_Cuenta a {
+    color: #4655a6;
+    text-decoration: none;
+    display: block;
+}
+
+.menu_Cuenta a:hover {
+    color: #fff;
+    background-color: #7344ac;
+}

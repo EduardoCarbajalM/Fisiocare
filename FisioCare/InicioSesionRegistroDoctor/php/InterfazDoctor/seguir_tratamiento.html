@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="es">
+    <head>
+        <meta charset="UTF-8"> 
+        <meta name="viewport" content="width=device-width">
+        <title>Seguir Tratamiento</title>
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="style.css">
+        <script src="minimenu.js"></script>
+    </head>
+    
+    <body>
+        <header>
+            <div class="caja">
+                <ul><li><img src="Imagenes/LOGO.png" alt="Logo"></li></ul>
+                <ul><li><img src="Imagenes/Doctor.png" alt="Cuenta" id="perfil"><div class="menu_Cuenta"><ul><li>
+                    <a href="micuenta.html">Mi cuenta</a></li></ul></div></li></ul>
+            </div>
+        </header>
+
+        <main>
+            <form action="procesar.php">
+                <nav class="Contenedor">
+                    <div class="fecha">
+                        <p>Coloca la fecha</p>
+                        <input type="date">
+                    </div>
+                    
+                    <div class="video">
+                        <p>Video</p>
+                        <input type="file" accept="video/"> 
+                    </div>
+
+                    <div class="imagen">
+                        <p>Imagen</p>
+                        <input type="file" accept="image/*">    
+                    </div>
+
+                    <div class="informacion">               
+                        <p>Información del tratamiento</p>
+                        <textarea rows="10" cols="50"></textarea>
+                    </div>
+
+                    <div class="confirmar_tratamiento">
+                        <p>¿Se realizo el tratamiento?</p>
+                        <a href="IndexTratamiento.html"><button>Sí</button></a>
+                        <a href="IndexTratamiento.html"><button>No</button></a>
+                    </div>
+                </nav>
+            </form>
+        </main>
+    </body>
+</html>
